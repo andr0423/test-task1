@@ -20,6 +20,9 @@ const char * Conv::read(const char in)
                 this->out[1] = this->data % 10         + 0x30;
                 this->out[2] = '\0';
             }
+
+            //sprintf(this->out, "%d", this->data);
+
             break;
 
         case 0b01:                                            //   signed int
@@ -51,6 +54,8 @@ const char * Conv::read(const char in)
                     this->out[2] = '\0';
                 }
             }
+
+            //sprintf(this->out, "%d", this->data);
 
             break;
 

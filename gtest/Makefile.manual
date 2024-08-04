@@ -1,0 +1,29 @@
+help:
+	@echo TBD...
+
+test.exe: test.cpp
+	g++ test.cpp -o test.exe -lgtest -lgmock -pthread
+
+run-tst: test.exe
+	./test.exe
+
+clean:
+	-rm test.exe
+
+gtest-install:
+	sudo apt-get install -y libgtest-dev libgmock-dev 
+	sudo apt-get install -y cmake
+	sudo apt-get install -y libtbb-dev
+
+gtest-complie:
+	sudo mkdir -p /usr/src/googletest/build
+	cd /usr/src/googletest/build && sudo cmake ..
+	cd /usr/src/googletest/build && sudo make
+	cd /usr/src/googletest/build && sudo cp lib/* /usr/local/lib
+
+gtest-remove:
+	sudo apt-get remove -y libgtest-dev libgmock-dev 
+	sudo apt-get remove -y cmake
+	sudo apt-get remove -y libtbb-dev
+	-cd /usr/local/lib && sudo rm libgmock.a libgmock_main.a libgtest.a libgtest_main.a
+
