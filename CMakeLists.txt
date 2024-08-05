@@ -4,5 +4,6 @@ project( "converter" )
 
 enable_testing()
 add_subdirectory( gtest )
-add_executable( main.exe main.cpp conv.cpp)
+#add_executable( main.exe main.cpp conv.cpp)
+add_executable( main.exe main.cpp conv.cpp control.cpp)
 target_link_libraries( main.exe gtest_main gmock_main )

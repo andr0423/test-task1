@@ -14,8 +14,9 @@ gtest-install:
 	sudo apt-get install -y libgtest-dev libgmock-dev 
 	sudo apt-get install -y cmake
 	sudo apt-get install -y libtbb-dev
+	sudo apt-get install -y gdb gdb-doc
 
-gtest-complie:
+gtest-compile:
 	sudo mkdir -p /usr/src/googletest/build
 	cd /usr/src/googletest/build && sudo cmake ..
 	cd /usr/src/googletest/build && sudo make
@@ -25,5 +26,6 @@ gtest-remove:
 	sudo apt-get remove -y libgtest-dev libgmock-dev 
 	sudo apt-get remove -y cmake
 	sudo apt-get remove -y libtbb-dev
+	sudo apt-get install -y gdb gdb-doc
 	-cd /usr/local/lib && sudo rm libgmock.a libgmock_main.a libgtest.a libgtest_main.a
 

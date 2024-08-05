@@ -8,10 +8,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-o",
-				//"${fileBasenameNoExtension}.exe",
-				"tt-1.exe",
+				"main.exe",
 				"-g",
-				"*.cpp",
+				"*.cpp"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -32,10 +31,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-o",
-				//"${fileBasenameNoExtension}.exe",
-				"tt-1.exe",
+				"main.exe",
 				"-g",
-				"*.cpp",
+				"*.cpp"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -44,7 +42,7 @@
 				"$gcc"
 			],
 			"group": {
-				"kind": "build",
+				"kind": "build"
 			},
 			"detail": "compiler: /usr/bin/g++"
 		},
@@ -57,8 +55,7 @@
 				"-g",
 				"${file}",
 				"-o",
-			  //"${fileDirname}/${fileBasenameNoExtension}",
-				"tt-1.exe",
+				"tt-1.exe"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -68,9 +65,19 @@
 			],
 			"group": {
 				"kind": "build"
-				
 			},
 			"detail": "compiler: /usr/bin/gcc"
+		},
+		{
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"[N/A - Select Kit]"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake template build task"
 		}
 	]
 }

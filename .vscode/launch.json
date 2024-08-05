@@ -10,7 +10,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/tt-1.exe",
+            "program": "${workspaceFolder}/main.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
