@@ -1,10 +1,16 @@
 #pragma once
-//#include <iostream>
+#include <iostream>
 
 
 class Conv
 {
-    unsigned char data;
+    union dataVar {
+        unsigned char uns;
+                 char sig;
+
+    };
+
+    dataVar data;
     unsigned char type;
 
     char out[4]{};

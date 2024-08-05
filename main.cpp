@@ -63,24 +63,9 @@ int main(){
 
     cout << "==== ==== ==== ==== ==== ====" << endl;
 
-    // istringstream iss("");
-    // for (int i = 1; i<254; i++){
-    //     if ((unsigned char)i == '.'){
-    //         continue;
-    //     }
-    //     iss.putback((unsigned char)i);
-    // }
-    // char t2;
-    // while (iss >> t2){
-    //     cout << t2 << endl;
-    // }
-    // iss.putback('.');
-
-    //"abcdefghijklmnopqastuvwxyz";
     istringstream iss("0123456789ABCDEFGHGIJKLMNOPQRSTUVWXYZabcdefghijklmnopqastuvwxyz.");
     ostringstream oss;
 
-    // while (c.get_input() != '.' ){
     while (not iss.eof()){
         iss >> c;
         cout << "\t(" << c.get_input() << ")("<< std::bitset<8>(c.get_input())<< ") -> [";
@@ -90,7 +75,5 @@ int main(){
 
      cout << "==== ==== ==== ==== ==== ====" << endl;
      cout << "==== ====  The End  ==== ====" << endl;
-    
-    // cout << endl << oss.str();
     
  }

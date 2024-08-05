@@ -1,8 +1,10 @@
+//#include <iostream>
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
 #include "../conv.h"
 #include "../conv.cpp"
+#include <bitset>
 
 using namespace std;
 
@@ -26,6 +28,9 @@ TEST(TestGroupName, Subtest_Conv){
     {0b01000001,  "16"},
     {0b11110101,  "-3"},
     {0b10111101, "-17"},
+    {0b01111101,  "31"},
+    {0b11111101, "-31"},
+    {0b10000001, "-32"},
 
                           // 10
     {0b00000010,   "a"},
@@ -39,7 +44,7 @@ TEST(TestGroupName, Subtest_Conv){
   char * to;
   for (auto td : test_data){
     to = const_cast<char*>(tc.read(td.in));
-    EXPECT_EQ(*to, *td.out);
+    EXPECT_EQ(*to, *td.out) << " == " << std::bitset<8>( td.in ) << ", e:" << td.out << ", c:" << to <<" == " ;
   }
 
   ASSERT_STRNE("1", test_data[10].out);

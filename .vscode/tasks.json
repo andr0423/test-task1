@@ -3,7 +3,7 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++ build tt-1 DEBUG",
+			"label": "C/C++: g++ build DEBUG main.exe ",
 			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
@@ -26,7 +26,7 @@
 		},
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++ build tt-1 RELEASE",
+			"label": "C/C++: g++ build RELEASE main.exe",
 			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
@@ -55,7 +55,7 @@
 				"-g",
 				"${file}",
 				"-o",
-				"tt-1.exe"
+				"${fileBasenameNoExtension}.exe"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
