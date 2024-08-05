@@ -1,8 +1,12 @@
 #include <iostream>
 #include <sstream>
+#include <bitset>
+#include <iomanip>
+
 #include "conv.h"
 #include "control.h"
-#include <bitset>
+
+
 
 using namespace std;
 
@@ -12,29 +16,33 @@ void demo(){
 
     unsigned char t[] = {
 
-                    //          00
-        0b00011100, //    7
-        0b00101000, //   10
-        0b00111100, //   15
+        //00
+        0b00'000111, //    7
+        0b00'001010, //   10
+        0b00'001111, //   15
 
-                    //          01
-        0b00011001, //    6
-        0b01000001, //   16
-        (unsigned char) 0b11110101, //   -3
-        (unsigned char) 0b10111101, //  -17
+        //01
+        0b01'000110, //    6
+        0b01'010000, //   16
+        0b01'111101, //   -3
+        0b01'101111, //  -17
+        0b01'011111, //   31
+        0b01'100010, //  -30
+        0b01'100001, //  -31
+        0b01'100000, //  -32
 
-                    //          10
-        0b00000010, //   "a"
-        0b01100110, //102:f -   "z"
-        0b01101010, //   ""
+        //10
+        0b10'000000, //   "a"
+        0b10'011001, //   "z"
+        0b10'011010, //   ""
 
-                    //          11
-        (unsigned char)0b11111111  //   ""
+        //11
+        0b11'111111  //   ""
 
     };
 
     for (auto r : t ){
-        cout << '[' << c.read(r) << ']' << endl;
+        cout << "(" << setw(2) << setfill('0') << hex << (int)r << dec << ")(" << std::bitset<8>(r) << ") -> [" << c.read(r) << "]" << endl;
     }
 }
 
@@ -42,8 +50,9 @@ int main(){
 
     cout << "Hello, test-task1" << endl;
 
-    cout << "==== ==== ==== ==== ==== ====" << endl;
-    cout << "==== Demo conv.cpp  ==== ====" << endl;
+    cout << "==== ==== ==== ==== ==== ====" << endl
+         << "==== Demo conv.cpp  ==== ====" << endl
+         << "==== ==== ==== ==== ==== ====" << endl;
 
     demo();
 
@@ -56,24 +65,34 @@ int main(){
     c.stop();
     cout << c.is_started() << endl;
 
-    char tmp_char = 0b01100110;  // "f"(102) -> "z"(25) : type "2"(0b10)
+    char tmp_char = 0b01100110;
 
     c.sink(tmp_char);
     cout << c << endl;
 
     cout << "==== ==== ==== ==== ==== ====" << endl;
 
-    istringstream iss("0123456789ABCDEFGHGIJKLMNOPQRSTUVWXYZabcdefghijklmnopqastuvwxyz.");
+    istringstream iss(
+        " !\"#$%&'-./" 
+        "0123456789"
+        ":;<=>?@"
+        "ABCDEFGHGIJKLMNOPQRSTUVWXYZ"
+        "[\\]^_`"
+        "abcdefghijklmnopqastuvwxyz"
+        "{|}~"
+        )
+        ;
     ostringstream oss;
 
     while (not iss.eof()){
         iss >> c;
-        cout << "\t(" << c.get_input() << ")("<< std::bitset<8>(c.get_input())<< ") -> [";
-        cout << c;
-        cout << "]" << endl;
+        cout << "\t(" << c.get_input() << ")"
+             << "("<< std::bitset<8>(c.get_input()) << ") -> ["
+             << c
+             << "]" << endl;
     }
 
-     cout << "==== ==== ==== ==== ==== ====" << endl;
-     cout << "==== ====  The End  ==== ====" << endl;
-    
+    cout << "==== ==== ==== ==== ==== ====" << endl;
+    cout << "==== ====  The End  ==== ====" << endl;
+    cout << "==== ==== ==== ==== ==== ====" << endl;
  }

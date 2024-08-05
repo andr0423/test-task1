@@ -4,14 +4,11 @@
 
 class Conv
 {
-    union dataVar {
+    union {
         unsigned char uns;
                  char sig;
 
-    };
-
-    dataVar data;
-    unsigned char type;
+    } data;
 
     char out[4]{};
 
