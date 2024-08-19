@@ -2,7 +2,7 @@
 
 
 
-const char * Conv::read(const char in)
+const char * Conv::convert(const char in)
 {
 
     switch ( in & 0b1100'0000 )
@@ -11,14 +11,13 @@ const char * Conv::read(const char in)
 
             this->data.uns = in & 0b0011'1111;
 
-            sprintf(this->out, "%d", this->data.uns);
+            sprintf(this->out, "%d", this->data);
 
             break;
 
         case 0b01'000000:                             //  signed int
 
             this->data.sig = in & 0b00'111111;
-
             if( this->data.sig  & 0b00'100000 ){
                 this->data.sig |= 0b11'000000;
             }
@@ -29,7 +28,6 @@ const char * Conv::read(const char in)
         case 0b10'000000:                             // alpha: a, b, ...
 
             this->data.uns = in & 0b0011'1111;
-
             this->data.uns = this->data.uns > 25 ? '\0' : this->data.uns + 0x61 ;
             sprintf( this->out, "%c", this->data.uns );
 

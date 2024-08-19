@@ -1,16 +1,23 @@
-#include <iostream>
-#include <sstream>
 #include <bitset>
 #include <iomanip>
+#include <iostream>
+#include <sstream>
+
+#include <unistd.h>
 
 #include "conv.h"
 #include "control.h"
 
 
 
+
 using namespace std;
 
 void demo(){
+
+    cout << "==== ==== ==== ==== ==== ==== ====" << endl
+         << "==== Demo conv.cpp  ==== ==== ====" << endl
+         << "==== ==== ==== ==== ==== ==== ====" << endl;
 
     Conv c = Conv();
 
@@ -41,58 +48,82 @@ void demo(){
 
     };
 
-    for (auto r : t ){
-        cout << "(" << setw(2) << setfill('0') << hex << (int)r << dec << ")(" << std::bitset<8>(r) << ") -> [" << c.read(r) << "]" << endl;
+    for ( auto r : t ){
+        cout 
+            << "(" << setw(2) << setfill('0') << hex << (int)r 
+            << dec << ")(" << std::bitset<8>(r) << ") -> ["
+             << c.convert(r)
+            << "]" << endl;
     }
+
+    cout << "==== ==== ==== ==== ==== ==== ====" << endl << endl;
+
+}
+
+void demo2(){
+
+    cout << "==== ==== ==== ==== ==== ==== ====" << endl
+         << "==== Demo control.cpp    ==== ====" << endl
+         << "==== ==== ==== ==== ==== ==== ====" << endl;
+
+    Control c = Control();
+    bool res = false;
+    string ou;
+
+    // stop
+    cout << " 1. Not started, state(" << c.state << ")" << endl;
+    cout << "    pattern 'ABCDE' -> '12345'" << endl;
+    res = c.source("ABCDE");
+    ou = c.sink();
+    cout << "    res(" << res << "), sink: [" << ou << "]" << endl;
+
+    // start
+    c.start();
+    cout << " 2. Started, state(" << c.state << ")" << endl;
+    cout << "    pattern 'ABCDE' -> '12345'" << endl;
+    res = c.source("ABCDE");
+    ou = c.sink();
+    cout << "    res(" << res << "), sink: [" << ou << "]" << endl;
+
+    // stop and start again
+    cout << " 3. Restart" << endl;
+    c.stop();
+    cout << "    state(" << c.state << ")" << endl;
+    c.start();
+    cout << "    state(" << c.state << ")" << endl;
+    cout << "    pattern 'ABCDE' -> '12345'" << endl;
+    res = c.source("ABCDE");
+    ou = c.sink();
+    cout << "    res(" << res << "), sink: [" << ou << "]" << endl;
+
+    // send pattrn twice without read
+    cout << " 4. Source twice" << endl;
+    cout << "    pattern '78' -> '5556'" << endl;
+    res = c.source("G456"); 
+    cout << "    pattern 'G456' -> '7525354'" << endl;
+    res = c.source("G456"); 
+    ou = c.sink();
+    cout << "    res(" << res << "), sink: [" << ou << "]" << endl;
+
+    c.stop();
+
+    cout << "==== ==== ==== ==== ==== ==== ====" << endl << endl;
+}
+
+void the_end(){
+    cout << "==== ==== ==== ==== ==== ==== ====" << endl
+         << "==== The End   ==== ==== ==== ====" << endl
+         << "==== ==== ==== ==== ==== ==== ====" << endl;
 }
 
 int main(){
 
-    cout << "Hello, test-task1" << endl;
-
-    cout << "==== ==== ==== ==== ==== ====" << endl
-         << "==== Demo conv.cpp  ==== ====" << endl
-         << "==== ==== ==== ==== ==== ====" << endl;
+    cout << "Hello, test-task1" << endl << endl;
 
     demo();
 
-    cout << "==== ==== ==== ==== ==== ====" << endl;
+    demo2();
 
-    Control c = Control();
-    cout << c.is_started() << endl;
-    c.start();
-    cout << c.is_started() << endl;
-    c.stop();
-    cout << c.is_started() << endl;
+    the_end();
 
-    char tmp_char = 0b01100110;
-
-    c.sink(tmp_char);
-    cout << c << endl;
-
-    cout << "==== ==== ==== ==== ==== ====" << endl;
-
-    istringstream iss(
-        " !\"#$%&'-./" 
-        "0123456789"
-        ":;<=>?@"
-        "ABCDEFGHGIJKLMNOPQRSTUVWXYZ"
-        "[\\]^_`"
-        "abcdefghijklmnopqastuvwxyz"
-        "{|}~"
-        )
-        ;
-    ostringstream oss;
-
-    while (not iss.eof()){
-        iss >> c;
-        cout << "\t(" << c.get_input() << ")"
-             << "("<< std::bitset<8>(c.get_input()) << ") -> ["
-             << c
-             << "]" << endl;
-    }
-
-    cout << "==== ==== ==== ==== ==== ====" << endl;
-    cout << "==== ====  The End  ==== ====" << endl;
-    cout << "==== ==== ==== ==== ==== ====" << endl;
  }

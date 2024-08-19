@@ -1,22 +1,43 @@
 #pragma once
 #include <istream>
+#include <list>
+#include <mutex>
+#include <thread>
+#include <condition_variable>
+
 #include "conv.h"
 
-class ISink{
+
+
+using namespace std;
+
+class ISource{                                 // input
 public:
-    virtual void sink(const char) = 0;
+    virtual bool source( const char * ) = 0;
 };
 
-class ISource{
+class ISink{                                   // output
 public:
-    virtual const char * source() = 0;
+    virtual string sink(  ) = 0;
+
 };
 
-class Control : ISink, ISource {
-    bool state = false;
-    char inp_char = '\0';
-    char out_chars[4] = {};
+
+
+class Control : ISource, ISink {
+
     Conv converter = Conv();
+
+    list<char> inp_chars;
+    list<char> out_chars;
+
+    // bool state = false;
+    // void process ();
+
+    mutex * mm = nullptr;
+    thread * th = nullptr;
+    condition_variable * cvi = nullptr;
+    condition_variable * cvo = nullptr;
 
 public:
     Control();
@@ -24,28 +45,15 @@ public:
     void start();
     void stop();
     bool is_started();
-    char get_input();
-    virtual void sink(const char);
-    virtual const char * source();
 
-    friend std::istream & operator>> ( std::istream& is, Control& input )
-    {
-        char t;
-        is >> t;
-        input.sink(t);
-        return is;
-    }
+    virtual bool source( const char * );
+    virtual string sink(  );
 
-    friend std::ostream & operator<< ( std::ostream & os, Control& output )
-    {
-        const char * tmp = output.source();
-        while(*(tmp)){
-            os << *tmp;
-            tmp++;
-        }
-        return os;
-    }
+    void process ();
+    bool state = false;
 
+    bool allow_convert = false;
+    bool allow_sink = false;
 };
 
 

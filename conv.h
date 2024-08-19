@@ -14,6 +14,6 @@ class Conv
 
 public:
 
-    const char * read(const char);
+    const char * convert(const char);
 
 };
